@@ -30,8 +30,36 @@ public class Bird {
             velocity.y = 200;
         }
 
+
+
         position.add(velocity.cpy().scl(delta));
 
+        // повернуть против часовой стрелки
+        if (velocity.y < 0) {
+            rotation -= 600 * delta;
+
+            if (rotation < -20) {
+                rotation = -20;
+            }
+        }
+
+        // Повернуть по часовой стрелке
+        if (isFalling()) {
+            rotation += 480 * delta;
+            if (rotation > 90) {
+                rotation = 90;
+            }
+
+        }
+
+    }
+
+    public boolean isFalling() {
+        return velocity.y > 110;
+    }
+
+    public boolean shouldntFlap() {
+        return velocity.y > 70;
     }
 
     public void onClick() {
